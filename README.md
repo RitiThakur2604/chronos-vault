@@ -18,7 +18,7 @@ A secure digital time capsule application built using Node.js, Express, and Mong
 * **Unlock the Message:**
   Once the timer expires, enter the correct PIN on the authentication page to successfully decrypt and view the original message.
 
-## 📂 File Structure
+## File Structure
 The application is organized using a streamlined approach inspired by the MVC (Model-View-Controller) architecture, keeping data logic strictly separated from presentation.
 
 * `server.js`: The core entry point of the application. It initializes the Express server, establishes the connection to MongoDB Atlas, and handles all RESTful API routing and controller logic.
@@ -35,7 +35,7 @@ The application is organized using a streamlined approach inspired by the MVC (M
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 **Backend Architecture**
 * **Node.js:** Chosen as the core runtime environment for its non-blocking, event-driven architecture, making it highly efficient for handling asynchronous database read/write operations.
