@@ -9,14 +9,49 @@ A secure digital time capsule application built using Node.js, Express, and Mong
 * **Intrusion Logging:** Actively tracks and logs unauthorized attempts to open capsules, including early access pings and failed PIN entries.
 * **Dark Mode UI:** Provides a fully custom-styled, responsive front-end experience.
 
-## Usage
+---
 
-* **Seal a Capsule:**
-  Submit a secret message, select an unlock date, and set a PIN using the input form on the home page (`/`). A unique, shareable URL token will be generated.
-* **Access the Capsule:**
-  Navigate to the shortened URL (e.g., `http://localhost:3000/capsule/:token`). If the time lock is still active, the system will block access and show a locked screen.
-* **Unlock the Message:**
-  Once the timer expires, enter the correct PIN on the authentication page to successfully decrypt and view the original message.
+## Usage Guide
+
+**1. Create a Capsule**
+Users provide:
+* A secret message
+* An unlock date and time
+* A security PIN
+*The application then generates a unique, shareable URL token.*
+
+**2. Wait for Unlock Time**
+Until the specified date arrives:
+* Message content remains mathematically hidden.
+* Direct access is strictly blocked.
+* Early access attempts are recorded in the security log.
+
+**3. Authenticate**
+Once the unlock time has finally passed, the recipient accesses the link and must enter the correct PIN.
+
+**4. Reveal the Message**
+After successful dual-verification (Time + PIN), the original message is decrypted and displayed to the user.
+
+**5. The "Acid Wash" (Data Destruction)**
+Once the message has been successfully viewed, the capsule is designed to undergo a digital "acid wash"—permanently scrubbing the payload from the database to ensure single-use viewing and absolute privacy.
+
+---
+
+## Security Design & Real-World Use Cases
+
+### The Security Architecture
+Chronos Vault operates on a **Zero-Trust, Dual-Gate model**:
+* **The Time Gate:** The server compares the current timestamp against the capsule's unlock date on every single backend request. This logic executes entirely server-side, making client-side bypasses or clock manipulation impossible.
+* **The PIN Gate:** Even if the time-lock clears, the payload remains inaccessible without the creator's secondary PIN.
+* **Active Auditing:** The `IntrusionLog` database schema silently records every failed attempt, providing a forensic trail of unauthorized access.
+
+### Where It Can Be Used
+* **Digital Wills & Estate Hand-offs:** Securely store critical passwords, seed phrases, or final letters to be accessed only after a specific date in the future.
+* **Embargoed Press Releases:** Journalists, companies, or developers can stage sensitive documents or code to become available to the public at an exact, synchronized time.
+* **Secure Single-Use Handoffs:** Sharing highly sensitive API tokens or configuration keys that self-destruct (via the acid wash protocol) immediately after being read by the intended developer.
+* **Letters to the Future:** Individuals can write messages to their future selves or loved ones for anniversaries, graduations, or personal milestones.
+
+---
 
 ## File Structure
 The application is organized using a streamlined approach inspired by the MVC (Model-View-Controller) architecture, keeping data logic strictly separated from presentation.
@@ -48,6 +83,8 @@ The application is organized using a streamlined approach inspired by the MVC (M
 **Frontend & UI**
 * **EJS (Embedded JavaScript):** A powerful templating engine that allows the Express server to securely inject dynamic backend data (like unique URL tokens and expiration dates) directly into the HTML before sending it to the client's browser.
 * **Vanilla CSS3:** All UI elements, layout structures, and the moody dark-mode theme were custom-engineered from scratch, ensuring a lightweight frontend without relying on heavy external CSS frameworks.
+
+---
 
 ## Acknowledgments
 
