@@ -33,7 +33,7 @@ app.post('/generate', async (req, res) => {
             expiresAt: expiresAtObj
         });
 
-        const shareableLink = `http://localhost:3000/capsule/${token}`;
+       const shareableLink = `https://chronos-vault.onrender.com/capsule/${token}`;
         
         res.send(`
             <div style="background-color: #121212; color: white; font-family: sans-serif; text-align: center; padding-top: 100px; height: 100vh;">
