@@ -14,25 +14,31 @@ A secure digital time capsule application built using Node.js, Express, and Mong
 ## Usage Guide
 
 **1. Create a Capsule**
+
 Users provide:
 * A secret message
 * An unlock date and time
 * A security PIN
+
 *The application then generates a unique, shareable URL token.*
 
 **2. Wait for Unlock Time**
+
 Until the specified date arrives:
 * Message content remains mathematically hidden.
 * Direct access is strictly blocked.
 * Early access attempts are recorded in the security log.
 
 **3. Authenticate**
+
 Once the unlock time has finally passed, the recipient accesses the link and must enter the correct PIN.
 
 **4. Reveal the Message**
+
 After successful dual-verification (Time + PIN), the original message is decrypted and displayed to the user.
 
 **5. The "Acid Wash" (Data Destruction)**
+
 Once the message has been successfully viewed, the capsule is designed to undergo a digital "acid wash"—permanently scrubbing the payload from the database to ensure single-use viewing and absolute privacy.
 
 ---
