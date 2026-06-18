@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronos Vault</title>
+    <style>
+        /* A little bit of CSS to make it look like a sleek, dark-mode hacker tool */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background-color: #1e1e1e; padding: 30px; border-radius: 10px; width: 400px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        input, select, textarea { width: 100%; padding: 10px; margin: 10px 0; border: none; border-radius: 5px; background-color: #2d2d2d; color: white; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px;}
+        button:hover { background-color: #0056b3; }
+        h2 { text-align: center; margin-top: 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>⏳ Seal a Capsule</h2>
+        
+        <form action="/generate" method="POST">
+            
+            <label>Secret Payload:</label>
+            <textarea name="message" rows="5" placeholder="Enter your config file, API key, or message..." required></textarea>
+
+            <label>Unlock Date & Time:</label>
+            <input type="datetime-local" name="unlockDate" required>
+
+            <label>4-Digit PIN:</label>
+            <input type="text" name="pin" maxlength="4" pattern="\d{4}" placeholder="e.g. 1234" required>
+
+            <label>Self-Destruct Timer (After Unlock):</label>
+            <select name="expireTime">
+                <option value="300000">5 Minutes</option>
+                <option value="3600000">1 Hour</option>
+                <option value="86400000">24 Hours</option>
+                <option value="604800000">7 Days</option>
+            </select>
+
+            <button type="submit">Encrypt & Generate Link</button>
+        </form>
+    </div>
+</body>
+</html>

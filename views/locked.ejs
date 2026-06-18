@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body { font-family: sans-serif; background-color: #121212; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
+        .container { background-color: #1e1e1e; padding: 40px; border-radius: 10px; border: 2px solid #ff4d4d; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="font-size: 50px; margin: 0;">🔒</h1>
+        <h2 style="color: #ff4d4d;">ACCESS DENIED</h2>
+        <p>This capsule is time-locked and cannot be opened yet.</p>
+        <p><strong>Unlocks on:</strong> <%= unlockDate.toLocaleString() %></p>
+    </div>
+</body>
+</html>
