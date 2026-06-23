@@ -1,6 +1,10 @@
 # Chronos Vault
 
+**🚀 Live Demo:** [https://chronos-vault.onrender.com/](https://chronos-vault.onrender.com/)
+
 A secure digital time capsule application built using Node.js, Express, and MongoDB that allows users to time-lock messages, secure them with a PIN, and completely prevent access until a specified future date.
+
+---
 
 ## Features
 
@@ -13,40 +17,24 @@ A secure digital time capsule application built using Node.js, Express, and Mong
 
 ## Usage Guide
 
-**1. Create a Capsule**
-
-Users provide:
-* A secret message
-* An unlock date and time
-* A security PIN
-
-*The application then generates a unique, shareable URL token.*
-
-**2. Wait for Unlock Time**
-
-Until the specified date arrives:
-* Message content remains mathematically hidden.
-* Direct access is strictly blocked.
-* Early access attempts are recorded in the security log.
-
-**3. Authenticate**
-
-Once the unlock time has finally passed, the recipient accesses the link and must enter the correct PIN.
-
-**4. Reveal the Message**
-
-After successful dual-verification (Time + PIN), the original message is decrypted and displayed to the user.
-
-**5. The "Acid Wash" (Data Destruction)**
-
-Once the message has been successfully viewed, the capsule is designed to undergo a digital "acid wash"—permanently scrubbing the payload from the database to ensure single-use viewing and absolute privacy.
+1. **Create a Capsule**
+   * Users provide: A secret message, an unlock date and time, and a security PIN.
+   * The application then generates a unique, shareable URL token.
+2. **Wait for Unlock Time**
+   * Until the specified date arrives: Message content remains mathematically hidden. Direct access is strictly blocked. Early access attempts are recorded in the security log.
+3. **Authenticate**
+   * Once the unlock time has finally passed, the recipient accesses the link and must enter the correct PIN.
+4. **Reveal the Message**
+   * After successful dual-verification (Time + PIN), the original message is decrypted and displayed to the user.
+5. **The "Acid Wash" (Data Destruction)**
+   * Once the message has been successfully viewed, the capsule is designed to undergo a digital "acid wash"—permanently scrubbing the payload from the database to ensure single-use viewing and absolute privacy.
 
 ---
 
 ## Security Design & Real-World Use Cases
 
 ### The Security Architecture
-Chronos Vault operates on a **Zero-Trust, Dual-Gate model**:
+Chronos Vault operates on a Zero-Trust, Dual-Gate model:
 * **The Time Gate:** The server compares the current timestamp against the capsule's unlock date on every single backend request. This logic executes entirely server-side, making client-side bypasses or clock manipulation impossible.
 * **The PIN Gate:** Even if the time-lock clears, the payload remains inaccessible without the creator's secondary PIN.
 * **Active Auditing:** The `IntrusionLog` database schema silently records every failed attempt, providing a forensic trail of unauthorized access.
@@ -60,6 +48,7 @@ Chronos Vault operates on a **Zero-Trust, Dual-Gate model**:
 ---
 
 ## File Structure
+
 The application is organized using a streamlined approach inspired by the MVC (Model-View-Controller) architecture, keeping data logic strictly separated from presentation.
 
 * `server.js`: The core entry point of the application. It initializes the Express server, establishes the connection to MongoDB Atlas, and handles all RESTful API routing and controller logic.
@@ -78,15 +67,15 @@ The application is organized using a streamlined approach inspired by the MVC (M
 
 ## Technologies Used
 
-**Backend Architecture**
+### Backend Architecture
 * **Node.js:** Chosen as the core runtime environment for its non-blocking, event-driven architecture, making it highly efficient for handling asynchronous database read/write operations.
-* **Express.js:** Provides the robust routing framework necessary for managing the REST API endpoints (`GET` and `POST` requests) and serving the dynamic frontend views.
+* **Express.js:** Provides the robust routing framework necessary for managing the REST API endpoints (GET and POST requests) and serving the dynamic frontend views.
 
-**Database & Data Management**
+### Database & Data Management
 * **MongoDB:** A flexible, document-based NoSQL database perfectly suited for storing independent capsule records and security logs.
 * **Mongoose (ODM):** Acts as the Object Data Modeling layer. It enforces strict schema validation at the application level, ensuring that no capsule can be saved to the database without the required security parameters (timestamps and PINs).
 
-**Frontend & UI**
+### Frontend & UI
 * **EJS (Embedded JavaScript):** A powerful templating engine that allows the Express server to securely inject dynamic backend data (like unique URL tokens and expiration dates) directly into the HTML before sending it to the client's browser.
 * **Vanilla CSS3:** All UI elements, layout structures, and the moody dark-mode theme were custom-engineered from scratch, ensuring a lightweight frontend without relying on heavy external CSS frameworks.
 
